@@ -1,34 +1,37 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center" style="margin: 40px;">
-            <form
-                    method="post"
-                    @submit.prevent="addProduct"
-                    class="row justify-content-center form-add-product"
-                >
+        <div style="margin: 10px;">
+            <h1>Produtos</h1>
+            <form method="post" @submit.prevent="storeProduct" style="margin: 20px;">
                 <div class="form-group">
                     <label for="">Nome</label>
-                    <input type="text" class="form-control" v-model="product.name">
+                    <input type="text" v-model="product.name" required>
                 </div>
+
+                <br>
 
                 <div class="form-group">
                     <label for="">Quantidade</label>
-                    <input type="text" class="form-control" v-model="product.amount">
+                    <input type="number" v-model="product.amount" required style="margin-left: 10px !important; ">
                 </div>
+
+                <br>
 
                 <div class="form-group">
                     <label for="">Preço</label>
-                    <input type="text" class="form-control" v-model="product.price">
+                    <input type="number" v-model="product.price" required>
                 </div>
 
+                <br>
+
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        Novo Produto
+                    <button type="submit">
+                        Cadastrar/Editar
                     </button>
                 </div>
             </form>
 
-            <table class="table table-striped">
+            <table>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -43,11 +46,11 @@
                         <td>{{product.amount}}</td>
                         <td>{{product.price}}</td>
                         <td>
-                            <button type="button" class="btn btn-success" @click="showProduct(product.id)">
-                                <i class="fa fa-pencil" ></i>
+                            <button type="button" @click="showProduct(product.id)">
+                                Visualizar
                             </button>
-                            <button type="button" class="btn btn-danger" @click="deleteProduct(product.id)">
-                                <i class="fa fa-trash" ></i>
+                            <button type="button" @click="deleteProduct(product.id)">
+                                Remover
                             </button>
                         </td>
                     </tr>
@@ -77,27 +80,30 @@
             loadProducts(){
                 axios.get('/products').then(res => this.products = res.data)
             },
-            addProduct(){
+            storeProduct(){
                 axios
                     .post('/products/' + this.product.id, this.product)
                     .then(res =>  {
+                            this.product.id = '';
+                            this.product.name = '';
+                            this.product.amount = '';
+                            this.product.price = '';
                             this.loadProducts();
-                            this.product = '';
                         }
                     )
             },
             deleteProduct(id){
                 axios.delete('/products/' + id)
-                .then(res => {
-                    this.loadProducts();
-                })
+                    .then(res => {
+                            if (res.data.success == true) {
+                                this.loadProducts()
+                            }
+                        }
+                    )
             },
             showProduct(id){
                 axios.get('/products/' + id)
-                .then(res => {
-                    let product = res.data;
-                    this.product = product;
-                })
+                    .then(res => this.product = res.data)
             }
         },
     }
