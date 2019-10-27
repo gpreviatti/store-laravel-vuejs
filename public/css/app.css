@@ -9,10 +9,16 @@ button {
   color: #ecf0f1;
   border-radius: 2px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  position: relative;
+  padding: 8px;
 }
 
 h1,
 label {
   color: gray;
+}
+
+form {
+  padding: 10px;
 }
 

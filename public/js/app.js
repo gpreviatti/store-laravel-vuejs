@@ -31923,7 +31923,9 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('products', __webpack_require__(/*! ./components/Products.vue */ "./resources/js/components/Products.vue")["default"]);
+Vue.component('products', __webpack_require__(/*! ./components/Products.vue */ "./resources/js/components/Products.vue")["default"]); // Desabilitando modo de debug do vue
+
+Vue.config.productionTip = false;
 var app = new Vue({
   el: '#app'
 });

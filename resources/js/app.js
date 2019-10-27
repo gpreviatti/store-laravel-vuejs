@@ -10,6 +10,9 @@ window.Vue = require('vue');
 
 Vue.component('products', require('./components/Products.vue').default);
 
+// Desabilitando modo de debug do vue
+Vue.config.productionTip = false
+
 const app = new Vue({
     el: '#app',
 });
