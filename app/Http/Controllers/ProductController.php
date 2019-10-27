@@ -18,6 +18,25 @@ class ProductController extends Controller
 
     public function store(Request $request, $id = null)
     {
+        // Validações
+        $validator = \Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'amount' => 'required|integer',
+                'price' => 'required|integer'
+            ],
+            [
+                'required' => 'O campo :attribute é necessário',
+                'integer' => 'O Campo :attribute deve ser um numero'
+            ]
+        );
+
+        // Retorna a mensagem de erro em formato json
+        if ($validator->fails()) {
+            return ['error' => $validator->errors()->all()];
+        }
+
         if ($id != null) {
             $product = Product::find($id);
             $product->update($request->all());

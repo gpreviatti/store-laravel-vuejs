@@ -5,7 +5,7 @@
             <form method="post" @submit.prevent="storeProduct" style="margin: 20px;">
                 <div class="form-group">
                     <label for="">Nome</label>
-                    <input type="text" v-model="product.name" required>
+                    <input type="text" v-model="product.name">
                 </div>
 
                 <br>
@@ -22,6 +22,9 @@
                     <input type="number" v-model="product.price" required>
                 </div>
 
+                <small>{{error}}</small>
+
+                <br>
                 <br>
 
                 <div class="form-group">
@@ -47,7 +50,7 @@
                         <td>{{product.price}}</td>
                         <td>
                             <button type="button" @click="showProduct(product.id)">
-                                Visualizar
+                                Editar
                             </button>
                             <button type="button" @click="deleteProduct(product.id)">
                                 Remover
@@ -67,6 +70,7 @@
         },
         data: () => {
             return {
+                error: "",
                 products: [],
                 product: {
                     id: '',
@@ -84,6 +88,9 @@
                 axios
                     .post('/products/' + this.product.id, this.product)
                     .then(res =>  {
+                            if (res.data.error) {
+                                this.error = res.data.error;
+                            }
                             this.product.id = '';
                             this.product.name = '';
                             this.product.amount = '';

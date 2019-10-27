@@ -1900,12 +1900,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.loadProducts();
   },
   data: function data() {
     return {
+      error: "",
       products: [],
       product: {
         id: '',
@@ -1927,6 +1931,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.post('/products/' + this.product.id, this.product).then(function (res) {
+        if (res.data.error) {
+          _this2.error = res.data.error;
+        }
+
         _this2.product.id = '';
         _this2.product.name = '';
         _this2.product.amount = '';
@@ -19606,7 +19614,7 @@ var render = function() {
                   expression: "product.name"
                 }
               ],
-              attrs: { type: "text", required: "" },
+              attrs: { type: "text" },
               domProps: { value: _vm.product.name },
               on: {
                 input: function($event) {
@@ -19674,6 +19682,10 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
+          _c("small", [_vm._v(_vm._s(_vm.error))]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
           _c("br"),
           _vm._v(" "),
           _vm._m(0)
@@ -19708,7 +19720,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                            Visualizar\n                        "
+                      "\n                            Editar\n                        "
                     )
                   ]
                 ),
