@@ -1,7 +1,11 @@
 <template>
     <div class="container">
         <div class="row justify-content-center" style="margin: 40px;">
-            <form method="post" @submit.prevent="addProduct" class="row justify-content-center form-add-product">
+            <form
+                    method="post"
+                    @submit.prevent="addProduct"
+                    class="row justify-content-center form-add-product"
+                >
                 <div class="form-group">
                     <label for="">Nome</label>
                     <input type="text" class="form-control" v-model="product.name">

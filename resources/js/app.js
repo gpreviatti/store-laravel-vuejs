@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.component('list-product', require('./components/listProduct.vue').default);
+Vue.component('products', require('./components/Products.vue').default);
 
 const app = new Vue({
     el: '#app',
